@@ -1,0 +1,26 @@
+@startuml
+class Pizza {
+  String name
+  void prepare()
+  void bake()
+  void cut()
+  void box()
+}
+
+class SimplePizzaFactory {
+  Pizza createPizza(String type)
+}
+
+class PizzaStore {
+  SimplePizzaFactory simplePizzaFactory
+  Pizza orderPizza(String type)
+}
+
+Pizza <|-- CheesePizza
+Pizza <|-- VeggiePizza
+Pizza <|-- ClamPizza
+Pizza <|-- SeaPizza
+
+PizzaStore -* SimplePizzaFactory
+SimplePizzaFactory -* Pizza
+@enduml

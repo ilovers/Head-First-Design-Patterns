@@ -1,0 +1,77 @@
+@startuml
+interface PizzaIngredientFactory {
+  public Dough createDough()
+  public Cheese createCheese()
+  public Clam createClam()
+}
+interface Dough{
+}
+interface Cheese{
+}
+interface Clam{
+}
+
+abstract class Pizza {
+  String name
+  Dough dough
+  Cheese cheese
+  Clam clam
+  PizzaIngredientFactory pizzaIngredientFactory
+  abstract void prepare()
+  void bake()
+  void cut()
+  void box()
+}
+
+class CheesePizza {
+  void prepare()
+}
+
+class ClamPizza {
+  void prepare()
+}
+
+abstract class PizzaStore {
+  Pizza orderPizza(String type)
+  abstract Pizza createPizza(String type)
+}
+
+class NYPizzaStore {
+  Pizza createPizza(String type)
+}
+
+class ChicagoPizzaStore {
+  Pizza createPizza(String type)
+}
+
+Pizza --* Dough
+Pizza --* Cheese
+Pizza --* Clam
+
+Pizza <|-- CheesePizza
+Pizza <|-- ClamPizza
+
+Pizza --* PizzaIngredientFactory
+
+PizzaIngredientFactory <|-- NYPizzaIngredientFactory
+PizzaIngredientFactory <|-- ChicagoPizzaIngredientFactory
+
+Dough <|-- ThickCrustDough
+Dough <|-- ThinCrustDough
+
+Cheese <|-- BigCheese
+Cheese <|-- SmallCheese
+
+Clam <|-- BigClam
+Clam <|-- SmallClam
+
+PizzaStore <|-- NYPizzaStore
+PizzaStore <|-- ChicagoPizzaStore
+
+NYPizzaStore --> NYPizzaIngredientFactory
+ChicagoPizzaStore --> ChicagoPizzaIngredientFactory
+
+PizzaIngredientFactory --> Dough
+PizzaIngredientFactory --> Cheese
+PizzaIngredientFactory --> Clam
+@enduml
